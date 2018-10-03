@@ -1,0 +1,28 @@
+{
+    "name": "dymantic/simple-weather",
+    "description": "A simple weather summary using apixu api",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michael Joyner",
+            "email": "joyner.michael@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dymantic\\SimpleWeather\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dymantic\\SimpleWeather\\Tests\\": "tests"
+        }
+    }
+}
