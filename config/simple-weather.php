@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'api_key' => env('WEATHER_API_KEY')
+    'api_key' => env('WEATHER_API_KEY'),
+
+    'locations' => []
 ];

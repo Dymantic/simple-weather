@@ -11,7 +11,7 @@ class Location
     public $long;
     public $identifier;
 
-    public function __construct($name, $lat, $long, $identifier = '')
+    public function __construct($name, $lat, $long, $identifier)
     {
         $this->name = $name;
         $this->lat = $lat;

@@ -44,7 +44,8 @@ class ApixuProviderCurrentTest extends TestCase
         $expected = [
             'record_date' => Carbon::parse("2018-10-03 09:30"),
             'temp' => '25',
-            'condition' => 'partly-cloudy'
+            'condition' => 'partly-cloudy',
+            'location_identifier' => $test_location->identifier
         ];
 
         $this->assertEquals($expected, $current);

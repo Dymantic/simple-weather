@@ -81,7 +81,8 @@ class ApixuProvider implements WeatherProvider
         return [
             'record_date' => Carbon::parse(Arr::get($data, 'current.last_updated')),
             'temp' => (string)Arr::get($data, 'current.temp_c', ''),
-            'condition' => Arr::get(ApixuConditions::$conditions, $code, 'unknown')
+            'condition' => Arr::get(ApixuConditions::$conditions, $code, 'unknown'),
+            'location_identifier' => $location->identifier
         ];
     }
 }

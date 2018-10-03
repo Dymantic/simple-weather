@@ -16,6 +16,7 @@ class CreateSimpleWeatherTable extends Migration
             $table->string('temp');
             $table->string('condition');
             $table->date('record_date');
+            $table->string('location_identifier');
             $table->nullableTimestamps();
         });
     }

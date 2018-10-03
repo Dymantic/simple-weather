@@ -4,6 +4,8 @@
 namespace Dymantic\SimpleWeather;
 
 
+use Dymantic\SimpleWeather\Commands\FetchCurrentRecord;
+use Dymantic\SimpleWeather\Commands\UpdateForecasts;
 use Dymantic\SimpleWeather\Providers\ApixuProvider;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +23,13 @@ class SimpleWeatherServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/simple-weather.php' => config_path('simple-weather.php')
         ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                UpdateForecasts::class,
+                FetchCurrentRecord::class,
+            ]);
+        }
     }
 
     public function register()

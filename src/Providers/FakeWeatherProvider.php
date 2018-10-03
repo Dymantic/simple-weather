@@ -59,7 +59,8 @@ class FakeWeatherProvider implements WeatherProvider
         return [
             'record_date' => Carbon::now(),
             'temp' => $this->currentTemp,
-            'condition' => $this->currentCondition
+            'condition' => $this->currentCondition,
+            'location_identifier' => $location->identifier
         ];
     }
 }
