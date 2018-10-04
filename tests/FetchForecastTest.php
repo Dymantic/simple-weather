@@ -52,4 +52,25 @@ class FetchForecastTest extends TestCase
         $this->assertTrue($record->record_date->isToday());
 
     }
+
+    /**
+     *@test
+     */
+    public function weather_records_will_overwrite_any_existing_records_for_the_same_day_and_location()
+    {
+        $fakeProvider = new FakeWeatherProvider();
+        app()->bind(WeatherProvider::class, function() use ($fakeProvider) {
+            return $fakeProvider;
+        });
+
+        app('weather')->storeCurrent(new Location('test', '24.333', '121.7999', 'test_id'));
+        app('weather')->storeCurrent(new Location('test', '24.333', '121.7999', 'test_id'));
+
+        $this->assertCount(1, WeatherRecord::all());
+        $record = WeatherRecord::first();
+
+        $this->assertEquals($record->temp, $fakeProvider->currentTemp);
+        $this->assertEquals($record->condition, $fakeProvider->currentCondition);
+        $this->assertTrue($record->record_date->isToday());
+    }
 }
