@@ -25,23 +25,12 @@ class ApixuProvider implements WeatherProvider
 
     public function forecast(Location $location)
     {
-        $coords = "{$location->lat},{$location->long}";
-        $url = "http://api.apixu.com/v1/forecast.json?key={$this->key}&q={$coords}&days=10";
+        $url = "http://api.apixu.com/v1/forecast.json?key={$this->key}&q={$location->coords()}&days=10";
 
         try {
-            $resp = $this->client->get($url);
+            $data = $this->getJson($url);
         } catch(\Exception $e) {
             throw new ForecastException($e->getMessage());
-        }
-
-        if($resp->getStatusCode() >= 300) {
-            throw new ForecastException('failed to fetch forecast');
-        }
-
-        $data = json_decode($resp->getBody()->getContents(), true);
-
-        if(! $data) {
-            throw new ForecastException('failed to parse forecast json');
         }
 
         return collect(Arr::get($data, "forecast.forecastday", []))->map(function($day) {
@@ -57,23 +46,12 @@ class ApixuProvider implements WeatherProvider
 
     public function current(Location $location)
     {
-        $coords = "{$location->lat},{$location->long}";
-        $url = "http://api.apixu.com/v1/current.json?key={$this->key}&q={$coords}";
+        $url = "http://api.apixu.com/v1/current.json?key={$this->key}&q={$location->coords()}";
 
         try {
-            $resp = $this->client->get($url);
+            $data = $this->getJson($url);
         } catch(\Exception $e) {
             throw new CurrentUpdateException($e->getMessage());
-        }
-
-        if($resp->getStatusCode() >= 300) {
-            throw new CurrentUpdateException('failed to fetch current weather');
-        }
-
-        $data = json_decode($resp->getBody()->getContents(), true);
-
-        if(! $data) {
-            throw new CurrentUpdateException('failed to parse update json');
         }
 
         $code = (string)Arr::get($data, 'current.condition.code', '9999');
@@ -84,5 +62,20 @@ class ApixuProvider implements WeatherProvider
             'condition' => Arr::get(ApixuConditions::$conditions, $code, 'unknown'),
             'location_identifier' => $location->identifier
         ];
+    }
+
+    private function getJson($url)
+    {
+        $resp = $this->client->get($url);
+        if($resp->getStatusCode() >= 300) {
+            throw new \Exception('failed to fetch current weather');
+        }
+        $json = json_decode($resp->getBody()->getContents(), true);
+
+        if(! $json) {
+            throw new \Exception('failed to parse apixu json response');
+        }
+
+        return $json;
     }
 }

@@ -23,4 +23,9 @@ class Location
     {
         return str_slug($this->name);
     }
+
+    public function coords()
+    {
+        return "{$this->lat},{$this->long}";
+    }
 }
