@@ -70,13 +70,12 @@ class SimpleWeather
             });
         }
 
-        return [
-            'date'      => is_array($today) ? $today['date'] : $today->record_date->format('Y-m-d'),
-            'day_name'  => is_array($today) ? Carbon::parse($today['date'])->format('l') : $today->record_date->format('l'),
-            'is_today'  => true,
-            'temp'      => round(floatval(is_array($today) ? $today['max'] : $today->temp)),
-            'condition' => is_array($today) ? $today['condition'] : $today->condition
-        ];
+        $day = is_array($today) ? $this->formatFromArray($today) : $this->formatFromObject($today);
+        $day['is_today'] = true;
+
+        return $day;
+
+
     }
 
     private function pastDays($location)
@@ -88,13 +87,7 @@ class SimpleWeather
                             ->get();
 
         return $days->reverse()->values()->map(function($day) {
-            return [
-                'date'      => $day->record_date->format('Y-m-d'),
-                'day_name'  => $day->record_date->format('l'),
-                'is_today'  => false,
-                'temp'      => round(floatval($day->temp)),
-                'condition' => $day->condition
-            ];
+            return $this->formatFromObject($day);
         })->all();
     }
 
@@ -105,13 +98,31 @@ class SimpleWeather
         })->take(3);
 
         return $days->map(function($day) {
-            return [
-                'date'      => $day['date'],
-                'day_name'  => Carbon::parse($day['date'])->format('l'),
-                'is_today'  => false,
-                'temp'      => round(floatval($day['max'])),
-                'condition' => $day['condition']
-            ];
+            return $this->formatFromArray($day);
         })->all();
+    }
+
+    private function formatFromArray($day)
+    {
+        return [
+            'date'      => $day['date'],
+            'day_name'  => Carbon::parse($day['date'])->format('l'),
+            'day_name_short'  => Carbon::parse($day['date'])->format('D'),
+            'is_today'  => false,
+            'temp'      => intval(round(floatval($day['max']))),
+            'condition' => $day['condition']
+        ];
+    }
+
+    private function formatFromObject($day)
+    {
+        return [
+            'date'      => $day->record_date->format('Y-m-d'),
+            'day_name'  => $day->record_date->format('l'),
+            'day_name_short'  => $day->record_date->format('D'),
+            'is_today'  => false,
+            'temp'      => intval(round(floatval($day->temp))),
+            'condition' => $day->condition
+        ];
     }
 }

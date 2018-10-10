@@ -33,6 +33,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(3)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(3)->format('D'),
                     'is_today' => false,
                     'temp' => 33,
                     'condition' => 'partly testy'
@@ -40,6 +41,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(2)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(2)->format('D'),
                     'is_today' => false,
                     'temp' => 22,
                     'condition' => 'partly testy'
@@ -47,6 +49,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(1)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(1)->format('D'),
                     'is_today' => false,
                     'temp' => 11,
                     'condition' => 'partly testy'
@@ -54,6 +57,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->format('Y-m-d'),
                     'day_name' => Carbon::today()->format('l'),
+                    'day_name_short' => Carbon::today()->format('D'),
                     'is_today' => true,
                     'temp' => 0,
                     'condition' => 'partly testy'
@@ -61,6 +65,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(1)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(1)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
@@ -68,6 +73,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(2)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(2)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
@@ -75,6 +81,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(3)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(3)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
@@ -115,6 +122,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(3)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(3)->format('D'),
                     'is_today' => false,
                     'temp' => 33,
                     'condition' => 'partly testy'
@@ -122,6 +130,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(2)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(2)->format('D'),
                     'is_today' => false,
                     'temp' => 22,
                     'condition' => 'partly testy'
@@ -129,6 +138,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->subDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(1)->format('l'),
+                    'day_name_short' => Carbon::today()->subDays(1)->format('D'),
                     'is_today' => false,
                     'temp' => 11,
                     'condition' => 'partly testy'
@@ -136,6 +146,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->format('Y-m-d'),
                     'day_name' => Carbon::today()->format('l'),
+                    'day_name_short' => Carbon::today()->format('D'),
                     'is_today' => true,
                     'temp' => 50,
                     'condition' => 'Sunny'
@@ -143,6 +154,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(1)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(1)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
@@ -150,6 +162,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(2)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(2)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
@@ -157,6 +170,7 @@ class WeatherOverviewTest extends TestCase
                 [
                     'date' => Carbon::today()->addDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(3)->format('l'),
+                    'day_name_short' => Carbon::today()->addDays(3)->format('D'),
                     'is_today' => false,
                     'temp' => 30,
                     'condition' => 'Partly cloudy'
