@@ -74,7 +74,7 @@ class SimpleWeather
             'date'      => is_array($today) ? $today['date'] : $today->record_date->format('Y-m-d'),
             'day_name'  => is_array($today) ? Carbon::parse($today['date'])->format('l') : $today->record_date->format('l'),
             'is_today'  => true,
-            'temp'      => is_array($today) ? $today['max'] : $today->temp,
+            'temp'      => round(floatval(is_array($today) ? $today['max'] : $today->temp)),
             'condition' => is_array($today) ? $today['condition'] : $today->condition
         ];
     }
@@ -92,7 +92,7 @@ class SimpleWeather
                 'date'      => $day->record_date->format('Y-m-d'),
                 'day_name'  => $day->record_date->format('l'),
                 'is_today'  => false,
-                'temp'      => $day->temp,
+                'temp'      => round(floatval($day->temp)),
                 'condition' => $day->condition
             ];
         })->all();
@@ -109,7 +109,7 @@ class SimpleWeather
                 'date'      => $day['date'],
                 'day_name'  => Carbon::parse($day['date'])->format('l'),
                 'is_today'  => false,
-                'temp'      => $day['max'],
+                'temp'      => round(floatval($day['max'])),
                 'condition' => $day['condition']
             ];
         })->all();

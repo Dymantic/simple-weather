@@ -34,49 +34,49 @@ class WeatherOverviewTest extends TestCase
                     'date' => Carbon::today()->subDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(3)->format('l'),
                     'is_today' => false,
-                    'temp' => '33.3',
+                    'temp' => 33,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->subDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(2)->format('l'),
                     'is_today' => false,
-                    'temp' => '22.2',
+                    'temp' => 22,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->subDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(1)->format('l'),
                     'is_today' => false,
-                    'temp' => '11.1',
+                    'temp' => 11,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->format('Y-m-d'),
                     'day_name' => Carbon::today()->format('l'),
                     'is_today' => true,
-                    'temp' => '0',
+                    'temp' => 0,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->addDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(1)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ],
                 [
                     'date' => Carbon::today()->addDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(2)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ],
                 [
                     'date' => Carbon::today()->addDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(3)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ]
             ]
@@ -116,49 +116,49 @@ class WeatherOverviewTest extends TestCase
                     'date' => Carbon::today()->subDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(3)->format('l'),
                     'is_today' => false,
-                    'temp' => '33.3',
+                    'temp' => 33,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->subDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(2)->format('l'),
                     'is_today' => false,
-                    'temp' => '22.2',
+                    'temp' => 22,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->subDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->subDays(1)->format('l'),
                     'is_today' => false,
-                    'temp' => '11.1',
+                    'temp' => 11,
                     'condition' => 'partly testy'
                 ],
                 [
                     'date' => Carbon::today()->format('Y-m-d'),
                     'day_name' => Carbon::today()->format('l'),
                     'is_today' => true,
-                    'temp' => '50',
+                    'temp' => 50,
                     'condition' => 'Sunny'
                 ],
                 [
                     'date' => Carbon::today()->addDays(1)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(1)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ],
                 [
                     'date' => Carbon::today()->addDays(2)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(2)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ],
                 [
                     'date' => Carbon::today()->addDays(3)->format('Y-m-d'),
                     'day_name' => Carbon::today()->addDays(3)->format('l'),
                     'is_today' => false,
-                    'temp' => '30',
+                    'temp' => 30,
                     'condition' => 'Partly cloudy'
                 ]
             ]
