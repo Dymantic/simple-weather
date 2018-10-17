@@ -189,7 +189,10 @@ class WeatherOverviewTest extends TestCase
         $location = new Location('Test location', '24', '121', 'loc_1');
         $overview = app('weather')->overview($location);
 
-        $this->assertEquals([], $overview);
+        $this->assertEquals([
+            'location' => ['name' => $location->name],
+            'days' => []
+        ], $overview);
     }
 
 }

@@ -47,7 +47,10 @@ class SimpleWeather
         $today = $this->normalizedToday($cached);
 
         if(!$today) {
-            return [];
+            return [
+                'location' => ['name' => $location->name],
+                'days'     => []
+            ];
         }
 
         $past = $this->pastDays($location);
