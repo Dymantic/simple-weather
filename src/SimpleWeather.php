@@ -43,6 +43,13 @@ class SimpleWeather
     public function overview(Location $location)
     {
         $cached = collect(cache()->get('weather.forecast.' . $location->slug() . '.days', []))->sortBy('date');
+
+        $today = $this->normalizedToday($cached);
+
+        if(!$today) {
+            return [];
+        }
+
         $past = $this->pastDays($location);
         $future = $this->futureDays($cached);
 
@@ -68,6 +75,10 @@ class SimpleWeather
             $today = $cached->first(function ($day) {
                 return Carbon::parse($day['date'])->isToday();
             });
+        }
+
+        if(!$today) {
+            return;
         }
 
         $day = is_array($today) ? $this->formatFromArray($today) : $this->formatFromObject($today);

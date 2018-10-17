@@ -181,4 +181,15 @@ class WeatherOverviewTest extends TestCase
         $this->assertEquals($expected, app('weather')->overview($location));
     }
 
+    /**
+     *@test
+     */
+    public function the_overview_is_empty_if_there_is_no_current_day()
+    {
+        $location = new Location('Test location', '24', '121', 'loc_1');
+        $overview = app('weather')->overview($location);
+
+        $this->assertEquals([], $overview);
+    }
+
 }
