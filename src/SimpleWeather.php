@@ -108,7 +108,7 @@ class SimpleWeather
     private function futureDays($cached)
     {
         $days = $cached->reject(function ($day) {
-            return Carbon::parse($day['date'])->isToday();
+            return Carbon::parse($day['date'])->lt(Carbon::today()->endOfDay());
         })->take(3);
 
         return $days->map(function($day) {
