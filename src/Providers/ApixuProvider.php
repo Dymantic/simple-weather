@@ -46,7 +46,7 @@ class ApixuProvider implements WeatherProvider
 
     public function current(Location $location)
     {
-        $url = "http://api.apixu.com/v1/current.json?key={$this->key}&q={$location->coords()}";
+        $url = "http://api.weatherstack.com/current?access_key={$this->key}&query={$location->coords()}";
 
         try {
             $data = $this->getJson($url);
@@ -54,11 +54,11 @@ class ApixuProvider implements WeatherProvider
             throw new CurrentUpdateException($e->getMessage());
         }
 
-        $code = (string)Arr::get($data, 'current.condition.code', '9999');
+        $code = (string)Arr::get($data, 'current.weather_code', '9999');
 
         return [
-            'record_date' => Carbon::parse(Arr::get($data, 'current.last_updated')),
-            'temp' => (string)Arr::get($data, 'current.temp_c', ''),
+            'record_date' => Carbon::parse(Arr::get($data, 'location.localtime')),
+            'temp' => (string)Arr::get($data, 'current.temperature', ''),
             'condition' => Arr::get(ApixuConditions::$conditions, $code, 'unknown'),
             'location_identifier' => $location->identifier
         ];

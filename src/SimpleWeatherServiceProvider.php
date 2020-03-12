@@ -7,6 +7,7 @@ namespace Dymantic\SimpleWeather;
 use Dymantic\SimpleWeather\Commands\FetchCurrentRecord;
 use Dymantic\SimpleWeather\Commands\UpdateForecasts;
 use Dymantic\SimpleWeather\Providers\ApixuProvider;
+use Dymantic\SimpleWeather\Providers\OpenWeatherProvider;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,7 +37,8 @@ class SimpleWeatherServiceProvider extends ServiceProvider
     {
         $this->app->bind(WeatherProvider::class, function() {
             $client = new Client();
-            return new ApixuProvider(config('simple-weather.api_key'), $client);
+            $provider_class = config('simple-weather.provider', OpenWeatherProvider::class);
+            return new $provider_class(config('simple-weather.api_key'), $client);
         });
 
         $this->app->bind('weather', function() {

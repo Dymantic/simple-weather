@@ -1,38 +1,40 @@
 {
+  "request": {
+    "type": "City",
+    "query": "New York, United States of America",
+    "language": "en",
+    "unit": "m"
+  },
   "location": {
-    "name": "Taichung",
-    "region": "T'ai-wan",
-    "country": "Taiwan",
-    "lat": 24.14,
-    "lon": 120.68,
-    "tz_id": "Asia/Taipei",
-    "localtime_epoch": 1538530850,
-    "localtime": "2018-10-03 9:40"
+    "name": "New York",
+    "country": "United States of America",
+    "region": "New York",
+    "lat": "40.714",
+    "lon": "-74.006",
+    "timezone_id": "America/New_York",
+    "localtime": "2018-10-03 09:30",
+    "localtime_epoch": 1567844040,
+    "utc_offset": "-4.0"
   },
   "current": {
-    "last_updated_epoch": 1538530213,
-    "last_updated": "2018-10-03 09:30",
-    "temp_c": 25.0,
-    "temp_f": 77.0,
-    "is_day": 1,
-    "condition": {
-      "text": "Partly cloudy",
-      "icon": "//cdn.apixu.com/weather/64x64/day/116.png",
-      "code": 1003
-    },
-    "wind_mph": 19.2,
-    "wind_kph": 31.0,
-    "wind_degree": 20,
-    "wind_dir": "NNE",
-    "pressure_mb": 1014.0,
-    "pressure_in": 30.4,
-    "precip_mm": 0.0,
-    "precip_in": 0.0,
-    "humidity": 41,
-    "cloud": 25,
-    "feelslike_c": 25.4,
-    "feelslike_f": 77.8,
-    "vis_km": 10.0,
-    "vis_miles": 6.0
+    "observation_time": "12:14 PM",
+    "temperature": 13,
+    "weather_code": 113,
+    "weather_icons": [
+      "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png"
+    ],
+    "weather_descriptions": [
+      "Sunny"
+    ],
+    "wind_speed": 0,
+    "wind_degree": 349,
+    "wind_dir": "N",
+    "pressure": 1010,
+    "precip": 0,
+    "humidity": 90,
+    "cloudcover": 0,
+    "feelslike": 13,
+    "uv_index": 4,
+    "visibility": 16
   }
 }

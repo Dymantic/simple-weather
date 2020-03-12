@@ -7,9 +7,11 @@ namespace Dymantic\SimpleWeather\Tests;
 use Dymantic\SimpleWeather\Exceptions\ForecastException;
 use Dymantic\SimpleWeather\Location;
 use Dymantic\SimpleWeather\Providers\ApixuProvider;
+use Dymantic\SimpleWeather\Providers\OpenWeatherProvider;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Carbon;
 
-class ApixuProviderForecastTest extends TestCase
+class OpenWeatherForecastTest extends TestCase
 {
 
     /**
@@ -19,56 +21,57 @@ class ApixuProviderForecastTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [], '{"valid": "json"}'));
-        $apixu = new ApixuProvider('TEST_KEY', $client);
+        $open_weather = new OpenWeatherProvider('TEST_KEY', $client);
 
-        $apixu->forecast($test_location);
+        $open_weather->forecast($test_location);
 
-        $expected_url = "http://api.apixu.com/v1/forecast.json?key=TEST_KEY&q=24.333,121.7999&days=10";
+        $expected_url = "http://api.openweathermap.org/data/2.5/forecast?lat=24.333&lon=121.7999&units=metric&APPID=TEST_KEY";
 
         $this->assertEquals($expected_url, $client->fetchedFrom);
     }
+
     /**
-     * @test
+     *@test
      */
-    public function it_provides_the_forecast_in_the_correct_format_for_a_given_200_response()
+    public function it_gets_the_correct_forecast_data()
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [],
-            file_get_contents(__DIR__ . '/fixtures/apixu_forecast_200.json')));
-        $apixu = new ApixuProvider(null, $client);
+            file_get_contents(__DIR__ . '/fixtures/open_weather_forecast_200.json')));
+        $open_weather = new OpenWeatherProvider(null, $client);
 
-        $forecast = $apixu->forecast($test_location);
+        $forecast = $open_weather->forecast($test_location);
 
         $expected = [
             [
-                'date' => '2018-10-02',
-                'max' => '30.4',
-                'min' => '23.2',
-                'condition' => 'partly-cloudy'
-            ],
-            [
-                'date' => '2018-10-03',
-                'max' => '29.8',
-                'min' => '23.1',
-                'condition' => 'partly-cloudy'
-            ],
-            [
-                'date' => '2018-10-04',
-                'max' => '27.6',
-                'min' => '22.2',
-                'condition' => 'partly-cloudy'
-            ],
-            [
-                'date' => '2018-10-05',
-                'max' => '28',
-                'min' => '25.2',
+                'date' => '2020-03-12',
+                'max' => '5.85',
+                'min' => '5.2',
                 'condition' => 'cloudy'
             ],
             [
-                'date' => '2018-10-06',
-                'max' => '30.8',
-                'min' => '25.4',
+                'date' => '2020-03-13',
+                'max' => '3.75',
+                'min' => '3.75',
                 'condition' => 'partly-cloudy'
+            ],
+            [
+                'date' => '2020-03-14',
+                'max' => '6.25',
+                'min' => '6.25',
+                'condition' => 'cloudy'
+            ],
+            [
+                'date' => '2020-03-15',
+                'max' => '6.79',
+                'min' => '6.79',
+                'condition' => 'cloudy'
+            ],
+            [
+                'date' => '2020-03-16',
+                'max' => '4.35',
+                'min' => '4.35',
+                'condition' => 'sunny'
             ]
         ];
 
@@ -82,10 +85,10 @@ class ApixuProviderForecastTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(500));
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $forecast = $apixu->forecast($test_location);
+            $forecast = $open_weather->forecast($test_location);
 
             $this->fail('expected a ForecastException to be thrown');
         } catch(\Exception $e) {
@@ -100,10 +103,10 @@ class ApixuProviderForecastTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new \Exception());
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $forecast = $apixu->forecast($test_location);
+            $forecast = $open_weather->forecast($test_location);
 
             $this->fail('expected a ForecastException to be thrown');
         } catch(\Exception $e) {
@@ -118,10 +121,10 @@ class ApixuProviderForecastTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [], "{not: a json string}"));
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $forecast = $apixu->forecast($test_location);
+            $forecast = $open_weather->forecast($test_location);
 
             $this->fail('expected a ForecastException to be thrown');
         } catch(\Exception $e) {
@@ -133,5 +136,4 @@ class ApixuProviderForecastTest extends TestCase
     {
         return new Location('test', '24.333', '121.7999', 'test_id');
     }
-
 }

@@ -7,7 +7,7 @@ namespace Dymantic\SimpleWeather\Tests;
 
 use GuzzleHttp\Psr7\Response;
 
-class FakeApixuClient
+class FakeTestClient
 {
 
     public $fetchedFrom;

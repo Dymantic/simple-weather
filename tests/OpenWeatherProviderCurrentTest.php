@@ -7,24 +7,24 @@ namespace Dymantic\SimpleWeather\Tests;
 use Dymantic\SimpleWeather\Exceptions\CurrentUpdateException;
 use Dymantic\SimpleWeather\Location;
 use Dymantic\SimpleWeather\Providers\ApixuProvider;
+use Dymantic\SimpleWeather\Providers\OpenWeatherProvider;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Carbon;
 
-class ApixuProviderCurrentTest extends TestCase
+class OpenWeatherProviderCurrentTest extends TestCase
 {
-
     /**
      *@test
      */
-    public function it_fetches_from_the_correct_url()
+    public function it_calls_the_correct_url()
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [], '{"valid": "json"}'));
-        $apixu = new ApixuProvider('TEST_KEY', $client);
+        $openWeather = new OpenWeatherProvider('TEST_KEY', $client);
 
-        $apixu->current($test_location);
+        $openWeather->current($test_location);
 
-        $expected_url = "http://api.weatherstack.com/current?access_key=TEST_KEY&query=24.333,121.7999";
+        $expected_url = "http://api.openweathermap.org/data/2.5/weather?lat=24.333&lon=121.7999&units=metric&APPID=TEST_KEY";
 
         $this->assertEquals($expected_url, $client->fetchedFrom);
     }
@@ -36,14 +36,14 @@ class ApixuProviderCurrentTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [],
-            file_get_contents(__DIR__ . '/fixtures/apixu_current_200.json')));
-        $apixu = new ApixuProvider(null, $client);
+            file_get_contents(__DIR__ . '/fixtures/openweather_current_200.json')));
+        $open_weather = new OpenWeatherProvider(null, $client);
 
-        $current = $apixu->current($test_location);
+        $current = $open_weather->current($test_location);
 
         $expected = [
-            'record_date' => Carbon::parse("2018-10-03 09:30"),
-            'temp' => '13',
+            'record_date' => Carbon::parse(1560350192),
+            'temp' => '31.4',
             'condition' => 'sunny',
             'location_identifier' => $test_location->identifier
         ];
@@ -58,10 +58,10 @@ class ApixuProviderCurrentTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(500));
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $apixu->current($test_location);
+            $open_weather->current($test_location);
 
             $this->fail('expected a CurrentUpdateException to be thrown');
         } catch(\Exception $e) {
@@ -76,10 +76,10 @@ class ApixuProviderCurrentTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new \Exception());
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $apixu->current($test_location);
+            $open_weather->current($test_location);
 
             $this->fail('expected a CurrentUpdateException to be thrown');
         } catch(\Exception $e) {
@@ -94,10 +94,10 @@ class ApixuProviderCurrentTest extends TestCase
     {
         $test_location = $this->fakeLocation();
         $client = new FakeTestClient(new Response(200, [], "{not: a json string}"));
-        $apixu = new ApixuProvider(null, $client);
+        $open_weather = new OpenWeatherProvider(null, $client);
 
         try {
-            $apixu->current($test_location);
+            $open_weather->current($test_location);
 
             $this->fail('expected a CurrentUpdateException to be thrown');
         } catch(\Exception $e) {
